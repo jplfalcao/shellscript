@@ -1,22 +1,25 @@
 #!/usr/bin/env bash
-# Autor: João Falcão
-# Github: https://github.com/jplberserk
-# Data de criação: 11/04/2022  
-# Data de modificação: 06/10/2022  
-# Versão: 1.3
+# Autor: João PauLo Falcão
+# Github: https://github.com/jplfalcao
+# Descrição: Apresenta uma mensagem de boas vindas
+# Data de criação: 11/04/2022
+# Data de modificação: 21/07/2023
+# Versão: 1.4
 # Uso: ./mensagem.sh
 
-# Apresenta uma mensagem de boas vindas.
+# Variáveis que armazenam as mensagens
+bemvindo1="Bom dia ${USER^} - hoje é $(date "+%A"), $(date "+%d") de $(date "+%B") de $(date "+%Y")."
+bemvindo2="Boa tarde ${USER^} - hoje é $(date "+%A"), $(date "+%d") de $(date "+%B") de $(date "+%Y")."
+bemvindo3="Boa noite ${USER^} - hoje é $(date "+%A"), $(date "+%d") de $(date "+%B") de $(date "+%Y")."
 
-welcome1=$(echo "Bom dia "${USER^}" - hoje é $(date "+%A"), $(date "+%d") de $(date "+%B") de $(date "+%Y").")
-welcome2=$(echo "Bom tarde "${USER^}" - hoje é $(date "+%A"), $(date "+%d") de $(date "+%B") de $(date "+%Y").")
-welcome3=$(echo "Bom noite "${USER^}" - hoje é $(date "+%A"), $(date "+%d") de $(date "+%B") de $(date "+%Y").")
-hours=$(date "+%H")
+# Variável de controle baseado na hora atual
+hora=$(date "+%H")
 
-if [ "$hours" -ge 06 ] && [ "$hours" -le 12 ]; then
-	echo "$welcome1"
-elif [ "$hours" -gt 12 ] && [ "$hours" -lt 18 ]; then
-	echo "$welcome2"	
+# Testando a variável 'hora' e apresentando a mensagem correspondente
+if [ "$hora" -ge 06 ] && [ "$hora" -lt 12 ]; then
+	echo "$bemvindo1"
+elif [ "$hora" -gt 12 ] && [ "$hora" -lt 18 ]; then
+	echo "$bemvindo2"
 else
-	echo "$welcome3"	
+	echo "$bemvindo3"
 fi
