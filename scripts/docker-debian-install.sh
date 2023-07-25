@@ -3,8 +3,8 @@
 # Github: https://github.com/jplfalcao
 # Descrição: Instalação do Docker CE em servidores GNU/Linux Debian
 # Data de criação: 04/04/2023
-# Data de modificação: 21/07/2023
-# Versão: 1.3
+# Data de modificação: 22/07/2023
+# Versão: 1.4
 # Uso: ./docker-debian-install.sh
 
 # Criando arquivo de log
@@ -51,10 +51,10 @@ dockerinstall() {
 }
 
 # Variável que verifica se o Docker CE já está instalado
-verificadocker=$(dpkg -l | grep -i docker-ce)
+verificadocker=$(dpkg -l | grep -i 'docker-ce')
 
 echo -e "Instalando o Docker CE..."
-if [ "$verificadocker" ] &> /dev/null; then
+if [ "$verificadocker" ] &>> /dev/null; then
 	echo -e "O Docker CE já está instalado. Continuando...\n"
 	sleep 5
 else
@@ -70,7 +70,7 @@ aliases="alias rm='rm -i'\nalias cp='cp -i'\nalias mv='mv -i'\nalias grep='grep 
 \nalias ls='ls --color=auto'\nalias vi='/usr/bin/vim'"
 
 # Filtro de pesquisa para os aliases
-filtroalias=$(grep -E "alias (rm|cp|mv|grep|ls|vi)=" /etc/bash.bashrc)
+filtroalias=$(grep -E 'alias (rm|cp|mv|grep|ls|vi)=' /etc/bash.bashrc)
 
 echo -e "Adicionando aliases ao arquivo /etc/bash.bashrc..."
 if [ -z "$filtroalias" ]; then
@@ -86,11 +86,11 @@ else
 fi
 
 # Adicionando recursos ao `vim`
-# Variável que adicionará os recursos ao arquivo
+# Variável que adicionará os recursos ao arquivo /etc/vim/vimrc
 recvim="syntax on\nset number\nset autoindent\nset tabstop=4\nset cursorline\nset cursorcolumn\nset paste"
 
 # Filtro de pesquisa para o `vim`
-filtrovim=$(grep -E "set (number|autoindent|tabstop=4|cursorline|cursorcolumn|paste)" /etc/vim/vimrc)
+filtrovim=$(grep -E 'set (number|autoindent|tabstop=4|cursorline|cursorcolumn|paste)' /etc/vim/vimrc)
 
 echo -e "Adicionando recursos ao arquivo /etc/vim/vimrc..."
 if [ -z "$filtrovim" ]; then

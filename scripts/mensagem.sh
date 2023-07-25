@@ -3,11 +3,11 @@
 # Github: https://github.com/jplfalcao
 # Descrição: Apresenta uma mensagem de boas vindas
 # Data de criação: 11/04/2022
-# Data de modificação: 21/07/2023
-# Versão: 1.4
+# Data de modificação: 22/07/2023
+# Versão: 1.5
 # Uso: ./mensagem.sh
 
-# Variáveis que armazenam as mensagens
+# Variáveis que armazenam as mensagens apresentadas na saída
 bemvindo1="Bom dia ${USER^} - hoje é $(date "+%A"), $(date "+%d") de $(date "+%B") de $(date "+%Y")."
 bemvindo2="Boa tarde ${USER^} - hoje é $(date "+%A"), $(date "+%d") de $(date "+%B") de $(date "+%Y")."
 bemvindo3="Boa noite ${USER^} - hoje é $(date "+%A"), $(date "+%d") de $(date "+%B") de $(date "+%Y")."

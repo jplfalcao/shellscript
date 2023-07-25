@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Autor: João PauLo Falcão
 # Github: https://github.com/jplfalcao
-# Descrição: Calculadora que será utilizada para efetuar as quatro operações básicas
+# Descrição: Calculadora que efetuará as quatro operações básicas
 # Data de criação: 07/06/2023
-# Data de modificação: 21/07/2023
-# Versão: 1.1
+# Data de modificação: 22/07/2023
+# Versão: 1.2
 # Uso: ./calculadora.sh
 
 # Verifique se o pacote `bc` está instalado em sua distribuição
@@ -14,9 +14,9 @@ clear
 echo -e ">>>Calculadora Simples<<<"
 read -r -p "Digite o primeiro número: " num1
 read -r -p "Digite o segundo número: " num2
-# Testa se as duas variáveis tem valor nulo
+# Testa se as duas variáveis estão com valor nulo
 if [[ ( -z "$num1" ) || ( -z "$num2" ) ]]; then
-    echo "Não foi passado (ou falta) parâmetros!"
+    echo -e "Não foi passado (ou falta) parâmetros!"
     exit 1
 # Testa se foi digitado letras
 elif [[ "$num1" && "$num2" =~ ^[[:alpha:]]+$ || "$num2" && "$num1" =~ ^[[:alpha:]]+$ ]]; then
