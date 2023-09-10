@@ -3,29 +3,28 @@
 # Github: https://github.com/jplfalcao
 # Descrição: Apresenta o relatório de um host GNU/Linux
 # Data de criação: 28/10/2021
-# Data de modificação: 21/07/2023
-# Versão: 1.6
+# Data de modificação: 10/09/2023
+# Versão: 1.7
 # Uso: ./relatorio-maquina.sh
 
-# O script foi testado em servidores Debian e CentOS
+# Script testado em servidores Debian e CentOS
 
-# Variáveis utilizadas para realizar os filtros
+# Coletando informações sobre o sistema
 kernel=$(uname -r)
-hostname=$(hostnamectl | grep 'hostname' | tr -d ' ' |  cut -d':' -f2)
 system=$(hostnamectl | grep 'System' | tr -d ' ' | cut -d':' -f2)
 cpuinfo=$(grep -c "model name" /proc/cpuinfo)
 cpumodel=$(grep "model name" /proc/cpuinfo | head -n1 | cut -c14-)
-memtotal=$(free -h | grep "Mem" | tr -d ' ' | cut -c5-8)
+memtotal=$(free -h | awk '/^Mem.?:/ {print $2}')
 filesys=$(df -hT | grep -Ev '(tmpfs|udev|loop)')
 uptime=$(uptime -s)
-proc=$(ps -aux | sed '1d' | wc -l)
-endip=$(ip -o a | grep -E "(eth|enp|ens|wlx).*" | awk '{print $4}' | head -n1)
+proc=$(ps aux --no-headers | wc -l)
+endip=$(ip -o -4 a s | awk '/(eth|enp|ens|wl[ax]).*/ {print $4}')
 
 clear
 
-# Saída do script
+# Exibindo as informações formatadas
 echo -e "==================================================================
-Relatório da máquina: $hostname
+Relatório da máquina: $HOSTNAME
 Usuário logado: $USER
 Data/Hora: $(date "+%Y-%m-%d %H:%M")
 Endereço IP: $endip
@@ -41,3 +40,4 @@ Modelo da CPU: $cpumodel
 $filesys
 \nTotal de processos em execução: $proc
 =================================================================="
+

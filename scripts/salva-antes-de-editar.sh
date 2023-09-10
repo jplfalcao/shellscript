@@ -1,32 +1,47 @@
 #!/usr/bin/env bash
 # Autor: João PauLo Falcão
 # Github: https://github.com/jplfalcao
-# Descrição: Antes de editar um arquivo salva uma cópia
+# Descrição: Salva uma cópia antes de editar um arquivo
 # Data de criação: 15/02/2022
-# Data de modificação: 21/07/2023
-# Versão: 1.3
+# Data de modificação: 10/09/2023
+# Versão: 1.4
 # Uso: ./salva-antes-de-editar.sh <arquivo>
 
 # Verifica se foi passado algum parâmetro
 if [ "$#" -ne 1 ]; then
-	echo "Informe o nome de arquivo!"
-	exit 1
+  echo "Informe o nome do arquivo!"
+  exit 1
 fi
 
-file=$1
-# Verifica se o arquivo NÂO existe
-if [ ! -f "$file" ]; then
-	vi "$file"
-	exit 0
+arquivo="$1"
+
+# Verifica se o arquivo NÃO existe
+if [ ! -e "$arquivo" ]; then
+  echo "O arquivo \"$arquivo\" não existe"
+  # Oferece opção de escolha
+  read -r -n 1 -p "Deseja criar? (s|n): " escolha
+  case "$escolha" in
+    [Ss])
+      touch "$arquivo" && echo -e "\nArquivo \"$arquivo\" criado!"
+      exit 1
+      ;;
+    [Nn])
+      echo -e "\nErro ao criar arquivo \"$arquivo\"!"
+      exit 1
+      ;;
+    *)
+      echo -e "Opção inválida!"
+      exit 1
+  esac
 fi
 
 # Verifica se o arquivo possui permissão de escrita
-if [ ! -w "$file" ]; then
-	echo "Você não tem permissão de escrita no arquivo \"$file\"."
-	exit 1
+if [ ! -w "$arquivo" ]; then
+  echo "Você não tem permissão de escrita para o arquivo \"$arquivo\"!"
+  exit 1
 fi
 
 # Realizando a cópia
-cp -a "$file" "$file.bkp"
-vi "$file"
-exit 0
+cp -a "$arquivo" "$arquivo.bkp"
+vi "$arquivo"
+

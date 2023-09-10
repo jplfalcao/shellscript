@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Autor: João PauLo Falcão
 # Github: https://github.com/jplfalcao
-# Descrição: Script que gera um arquivo já com cabeçalho e permissão de execução
+# Descrição: Gera um arquivo com cabeçalho e permissão de execução
 # Data de criação: 07/11/2021
-# Data de modificação: 21/07/2023
-# Versão: 1.6
+# Data de modificação: 10/09/2023
+# Versão: 1.7
 # Uso: ./novo-script.sh <arquivo>
 
-# Comentários no cabeçalho do script
+# Cabeçalho do script
 cabecalho="#!/usr/bin/env bash
 # Autor:
 # Github:
@@ -18,23 +18,41 @@ cabecalho="#!/usr/bin/env bash
 # Uso:
 "
 
-# Verifica se foi passado algum parâmetro
+# Verifica se foi passado um nome de arquivo como argumento
 if [ "$#" -ne 1 ]; then
-    echo "Informe um nome para o arquivo!"
-    exit 1
+  echo "Informe um nome para o arquivo!"
+  exit 1
 fi
 
 # Verifica se o arquivo já existe
 if [ -f "$1" ]; then
-	echo "O arquivo já existe!"
-	exit 1
+  echo "O arquivo já existe!"
+  exit 1
 fi
 
-# Insere o cabeçalho no inicio do arquivo
-echo "$cabecalho" > "$1"
 
-# Adiciona permissão de execução
-chmod u+x "$1"
+# Oferece opção de escolha do editor de texto
+echo "Escolha um editor de texto:"
+select editor in "Nano" "VI"; do
+  case "$editor" in
+  Nano)
+    # Insere o cabeçalho, edita utilizando o nano e adiciona permissão de
+		# execução.
+    echo "$cabecalho" > "$1" && nano "$1" && chmod u+x "$1"
+    break
+    ;;
+  VI)
+    # Insere o cabeçalho, edita utilizando o vi e adiciona permissão de
+		# execução.
+    echo "$cabecalho" > "$1" && vi "$1" && chmod u+x "$1"
+    break
+    ;;
+  *)
+    echo "Opção inválida!"
+    exit 1
+    ;;
+  esac
+done
 
-# Cria o arquivo como editor VI
-vi "$1"
+echo -e "\nCabeçalho inserido e arquivo criado: $1"
+
