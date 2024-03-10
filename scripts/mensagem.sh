@@ -3,11 +3,10 @@
 # Github: https://github.com/jplfalcao
 # Descrição: Apresenta uma mensagem de boas vindas
 # Data de criação: 11/04/2022
-# Data de modificação: 10/09/2023
-# Versão: 1.6
+# Data de modificação: 09/03/2024
+# Versão: 1.7
 # Uso: ./mensagem.sh
 
-# Obtém a saudação com base na hora atual
 saudacao() {
   local hora=$(date "+%H")
   if [ "$hora" -ge 06 ] && [ "$hora" -lt 12 ]; then
@@ -19,7 +18,6 @@ saudacao() {
   fi
 }
 
-# Armazena a saudação e imprime
 mensagem=$(saudacao)
 echo "$mensagem"
 
